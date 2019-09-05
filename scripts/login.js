@@ -13,8 +13,15 @@ $(document).ready(function() {
             }).then(function(response) {
                 if (response == 'success')
                 window.location.href = 'index.php';
-                else
-                $('#result_answer').text('Falha ao autenticar as credenciais');
+
+                if (response == 'success_first')
+                window.location.href = 'change_password.php';
+                
+                if (response == 'login error')
+                $('#result_answer').text('Usuário ou senha incorretos');
+
+                if (response == 'tries error')
+                $('#result_answer').text('Você fez tentativas demais, por favor, espere antes de tentar novamente');
             });
         }
     });
