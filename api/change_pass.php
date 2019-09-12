@@ -12,11 +12,17 @@ if ($password != $_SESSION['password']) {
     return;
 }
 
-session_unset($_SESSION['password']);
-session_unsert($_SESSION['first_access']);
+unset($_SESSION['password']);
+unset($_SESSION['first_access']);
 $query = "UPDATE users SET password = '$new_password', first_access = 0 WHERE id = '$id'";
 $result = mysqli_query($conexao, $query);
 echo "success";
 exit();
 
+
+function CreateLoginSession($row) {
+    $_SESSION['id'] = $row['id'];
+    $_SESSION['login'] = $row['login'];
+    $_SESSION['permission'] = $row['permission'];
+}
 ?>

@@ -1,6 +1,5 @@
 <?php 
     include('api/login_verify.php');
-    session_start();
 
   if (!isset($_SESSION['first_access']))
   header('Location: ../../abeille/index.php');
