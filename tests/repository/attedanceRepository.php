@@ -28,7 +28,7 @@ class AttendanceRepositoryTest extends TestCase{
 
         $createAtt = new AttendanceRepository($object);
 
-        $resp = \json_decode($createAtt->create());;
+        $resp = $createAtt->create();
 
         $this->assertEquals(1, $resp->queue_number);
         $this->assertEquals(1, $resp->status);
@@ -51,7 +51,7 @@ class AttendanceRepositoryTest extends TestCase{
 
         $createAtt = new AttendanceRepository($object);
 
-        $resp = \json_decode($createAtt->create());;
+        $resp = $createAtt->create();
 
         $this->assertEquals(2, $resp->queue_number);
         $this->assertEquals(1, $resp->status);
@@ -74,7 +74,7 @@ class AttendanceRepositoryTest extends TestCase{
 
         $createAtt = new AttendanceRepository($object);
 
-        $resp = \json_decode($createAtt->create());;
+        $resp = $createAtt->create();
 
         $this->assertEquals(1, $resp->queue_number);
         $this->assertEquals(1, $resp->status);

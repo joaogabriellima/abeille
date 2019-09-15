@@ -32,14 +32,28 @@ class AttendanceRepository {
         $this->attendanceObject->queue_number = 1;
         $this->attendanceObject->status = 1;
 
-        if (count($lastQueueNumber) > 0 && date('Y-m-d', strtotime($lastQueueNumber['created_at'])) == date('Y-m-d'))
+        if ($lastQueueNumber != null)
             $this->attendanceObject->queue_number = strval($lastQueueNumber['queue_number']) + 1;
 
         if ($this->attendanceObject->create()){
-            return json_encode($this->attendanceObject);
+            return $this->attendanceObject;
         } else {
             return 'ERROR';
         }
+    }
+
+    public function getCurrentNumber(){
+        return array(
+            'currentNumber' => $this->attendanceObject->getCurrentAttendance(true)->queue_number,
+            'averageWaitTime' => $this->attendanceObject->getAverageTime()
+        );
+    }
+
+    public function getAttendancesByDay($dayOfWeek) {
+        return array(
+            'averageWaitTime' => $this->attendanceObject->getAverageTime(),
+            'averageByHours' => $this->attendanceObject->getAverageByHour($dayOfWeek)
+        );
     }
 
     public function getStatus($id){
@@ -47,7 +61,7 @@ class AttendanceRepository {
 
         $this->attendanceObject->getStatus();
 
-        return json_encode($this->attendanceObject);
+        return $this->attendanceObject;
     }
 }
 
