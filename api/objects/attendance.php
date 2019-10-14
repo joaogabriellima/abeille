@@ -73,7 +73,8 @@ class Attendance {
     public function getStatus() {
         $query =    'SELECT status
                     FROM ' . $this->table_name . ' 
-                    WHERE Id = :id';
+                    WHERE DATE(created_at) = DATE(NOW())
+                        AND Id = :id';
         
         $stmt = $this->conn->prepare($query);
 
