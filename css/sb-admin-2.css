@@ -2011,7 +2011,7 @@ pre code {
 
 .form-control {
   display: block;
-  width: 100%;
+  width: 90%;
   height: calc(1.5em + 0.75rem + 2px);
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
@@ -11641,7 +11641,7 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");
+  background: url("../img/login.png");
   background-position: center;
   background-size: cover;
 }

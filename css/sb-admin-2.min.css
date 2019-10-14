@@ -2752,14 +2752,14 @@
                         
                         .btn-primary {
                             color: #fff;
-                            background-color: #4e73df;
-                            border-color: #4e73df
+                            background-color: #2b2b2b;
+                            border-color: #2b2b2b;
                         }
                         
                         .btn-primary:hover {
                             color: #fff;
-                            background-color: #2e59d9;
-                            border-color: #2653d4
+                            background-color: #303030;
+                            border-color: #303030
                         }
                         
                         .btn-primary.focus,
@@ -2771,16 +2771,16 @@
                         .btn-primary.disabled,
                         .btn-primary:disabled {
                             color: #fff;
-                            background-color: #4e73df;
-                            border-color: #4e73df
+                            background-color: #3b3b3b;
+                            border-color: #3b3b3b
                         }
                         
                         .btn-primary:not(:disabled):not(.disabled).active,
                         .btn-primary:not(:disabled):not(.disabled):active,
                         .show>.btn-primary.dropdown-toggle {
                             color: #fff;
-                            background-color: #2653d4;
-                            border-color: #244ec9
+                            background-color: #3b3b3b;
+                            border-color: #3b3b3b
                         }
                         
                         .btn-primary:not(:disabled):not(.disabled).active:focus,
@@ -11962,9 +11962,11 @@
                         }
                         
                         .bg-login-image {
-                            background: url(C:\Users\Karla\Documents\9_TCC\1_SITE\startbootstrap-sb-admin-2-gh-pages\img\login.png);
-                            background-position: center;
-                            background-size: cover
+                            background: url('../img/login.png');
+                            
+                            
+                            width: 100%;
+                            height: 300px;
                         }
                         
                         .bg-register-image {

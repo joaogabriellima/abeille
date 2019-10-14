@@ -9,3 +9,30 @@
 .insertUserForm select {
     margin-top: 15px;
 }
+
+#userForm .showrequire:after {
+    content: '*';
+    color: red;
+}
+
+#userForm .form-control {
+    display: initial !important;
+    width: 90% !important;
+}
+
+.profile-sidebar {
+    padding: 20px 0 10px 0;
+    background: #fff;
+}
+
+.profile-userpic img {
+    float: none;
+    margin: 0 auto;
+    max-width: 200px;
+    max-height: 200px;
+    width: 50%;
+    height: 50%;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+  }

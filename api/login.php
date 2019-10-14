@@ -25,14 +25,21 @@ try {
         if ($row == 1){
             while($rowDTO = mysqli_fetch_array($result)) {
                 CreateLoginSession($rowDTO);
-                echo "success";
                 
                 if ($rowDTO['first_access'] == 1) {
                     echo "_first";
                     $_SESSION['first_access'] = 1;
                     $_SESSION['password'] = $rowDTO['password'];
+                    return;
                 }
                 
+                if ($rowDTO['permission'] == 0)
+                echo "success_adm";
+
+                
+                if ($rowDTO['permission'] == 1)
+                echo "success_atd";
+
                 exit();
             }
         }
