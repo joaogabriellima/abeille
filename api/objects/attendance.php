@@ -71,7 +71,7 @@ class Attendance {
     }
 
     public function getStatus() {
-        $query =    'SELECT status
+        $query =    'SELECT status, rate
                     FROM ' . $this->table_name . ' 
                     WHERE DATE(created_at) = DATE(NOW())
                         AND Id = :id';
@@ -87,6 +87,7 @@ class Attendance {
             extract($row);
 
             $this->status = $status;
+            $this->rate = $rate;
 
             return $this->status;
         } else {
@@ -184,6 +185,24 @@ class Attendance {
         }
 
         return $res;
+    }
+
+    public function rate() {
+        $query =    'UPDATE '. $this->table_name . ' 
+                    SET rate = :rate
+                    WHERE id = :id';
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':rate', $this->rate);
+        $stmt->bindParam(':id', $this->id);
+
+        if ($stmt->execute()) {
+            $this->id = $this->conn->lastInsertId();
+            return true;
+        }
+
+        return false;   
     }
 }
 

@@ -63,6 +63,16 @@ class AttendanceRepository {
 
         return $this->attendanceObject;
     }
+
+    public function rate($id, $rating) {
+        $this->attendanceObject->id = $id;
+        $this->attendanceObject->rate = $rating;
+
+        if($this->attendanceObject->rate())
+            return $this->attendanceObject;
+        else
+            return 'ERROR';
+    }
 }
 
 ?>
