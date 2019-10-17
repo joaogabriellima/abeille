@@ -32,33 +32,33 @@ $(document).ready(function() {
         if (!validateAllFields())
         return;
         
-        var param = CreateObject();
-        
-        $.ajax({
-            url: 'api/insert_user.php',
-            method: 'post',
-            data: param
-        }).then(function(response) {
-            CleanAndClose();
-            if (response.indexOf('error') >= 0) {
+        CreateObject().then((param) => {
+            $.ajax({
+                url: 'api/insert_user.php',
+                method: 'post',
+                data: param
+            }).done(function(response) {
+                CleanAndClose();
+                if (response.indexOf('error') >= 0) {
+                    Swal.fire({
+                        title: 'Erro!',
+                        text: 'Um usuário já está cadastrado com esses dados!',
+                        type: 'error',
+                        confirmButtonText: 'Ok'
+                    })
+                    return;
+                }
+                
                 Swal.fire({
-                    title: 'Erro!',
-                    text: 'Um usuário já está cadastrado com esses dados!',
-                    type: 'error',
+                    title: 'Sucesso!',
+                    text: 'Usuário inserido com sucesso',
+                    type: 'success',
                     confirmButtonText: 'Ok'
-                })
-                return;
-            }
-            
-            Swal.fire({
-                title: 'Sucesso!',
-                text: 'Usuário inserido com sucesso',
-                type: 'success',
-                confirmButtonText: 'Ok'
-            })
-            
-        }).catch(function(error) {
-            var a = error;
+                });
+                
+            }).catch(function(error) {
+                var a = error;
+            });
         });
     });
     
@@ -188,36 +188,33 @@ $(document).ready(function() {
     }
 
     function CreateObject() {
-        var name = $('#full_name').val();
-        var login = $('#login').val();
-        var password = $('#password').val();
-        var permission = $('#permission').val();
-        var cpf = $('#cpf').val();
-        var phone = $('#phone').val();
-        var email = $('#email').val();
-
-        var picture = '';
-        var reader = new FileReader();
-
-        reader.onloadend = function() {
-            picture = reader.result;
-            console.log(picture);
-        };
-
-        reader.readAsDataURL(document.querySelector('#picture').files[0]);
-
-        while(picture == '') {}
-
-        var objeto = 'full_name='  + name +
-        '&login='  + login +
-        '&password='  + password +
-        '&permission='  + permission +
-        '&cpf='  + cpf +
-        '&phone='  + phone +
-        '&email='  + email +
-        '&picture=' + picture;
-        
-        return objeto;
+        return new Promise((resolve, reject) => {
+            var name = $('#full_name').val();
+            var login = $('#login').val();
+            var password = $('#password').val();
+            var permission = $('#permission').val();
+            var cpf = $('#cpf').val();
+            var phone = $('#phone').val();
+            var email = $('#email').val();
+    
+            var picture = '';
+            var reader = new FileReader();
+    
+            reader.onloadend = function() {
+                picture = reader.result;
+                var objeto = 'full_name='  + name +
+                            '&login='  + login +
+                            '&password='  + password +
+                            '&permission='  + permission +
+                            '&cpf='  + cpf +
+                            '&phone='  + phone +
+                            '&email='  + email +
+                            '&picture=' + picture;
+                resolve(objeto);
+            };
+    
+            reader.readAsDataURL(document.querySelector('#picture').files[0]);
+        });
     }
     
     function CreateEditObject() {

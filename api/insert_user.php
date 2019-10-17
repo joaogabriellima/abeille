@@ -27,8 +27,7 @@ try {
     $response_array['status'] = 'success';
     http_response_code(200);
     header('Content-type: application/json');
-    // echo json_encode($response_array);
-    echo "SUCESSO";
+    echo json_encode($response_array);
 }
 catch(Exception $e) {
     echo json_encode(
