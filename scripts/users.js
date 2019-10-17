@@ -195,14 +195,27 @@ $(document).ready(function() {
         var cpf = $('#cpf').val();
         var phone = $('#phone').val();
         var email = $('#email').val();
-        
+
+        var picture = '';
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+            picture = reader.result;
+            console.log(picture);
+        };
+
+        reader.readAsDataURL(document.querySelector('#picture').files[0]);
+
+        while(picture == '') {}
+
         var objeto = 'full_name='  + name +
         '&login='  + login +
         '&password='  + password +
         '&permission='  + permission +
         '&cpf='  + cpf +
         '&phone='  + phone +
-        '&email='  + email;
+        '&email='  + email +
+        '&picture=' + picture;
         
         return objeto;
     }

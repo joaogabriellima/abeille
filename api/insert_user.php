@@ -17,14 +17,15 @@ try {
     $row = mysqli_num_rows($validationResult);
     
     if ($row != 0)
-    throw new Exception("Já existe um usuário cadastrado com esses dados");
+        throw new Exception("Já existe um usuário cadastrado com esses dados");
     
-    $query = "INSERT INTO users ('full_name', 'login', 'password', 'permission', 'first_access', 'picture', 'cpf', 'phone', 'email', 'blocked', 'status') 
-    VALUES ('$nome', '$login', '$pass', '$permission', 1, '$picture', '$cpf', '$phone', '$email', 0, 1)";
+    $query = "INSERT INTO users (full_name, login, password, permission, first_access, picture, cpf, phone, email, blocked, status) 
+    VALUES ('$nome', '$login', '$pass', $permission, 1, '$picture', '$cpf', '$phone', '$email', 0, 1)";
     
     mysqli_query($conexao, $query);
 
     $response_array['status'] = 'success';
+    http_response_code(200);
     header('Content-type: application/json');
     // echo json_encode($response_array);
     echo "SUCESSO";
