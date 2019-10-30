@@ -1,6 +1,7 @@
 <?php
    include('api/login_verify.php');
    include('api/permission_verify.php');
+   include('api/check_attendance.php');
    require('api/conexao.php');
    ?>
 <!DOCTYPE html>
@@ -18,6 +19,7 @@
       <!-- Custom styles for this template-->
       <link href="css/sb-admin-2.min.css" rel="stylesheet">
       <link href="custom_css/custom.css" rel="stylesheet">
+      <link href="js/sweetalert2.css" rel="stylesheet">
    </head>
    <body id="page-top">
       <div id="wrapper">
@@ -73,19 +75,6 @@
                         <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <!-- Dropdown - Messages -->
-                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                           <form class="form-inline mr-auto w-100 navbar-search">
-                              <div class="input-group">
-                                 <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                 <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                 </div>
-                              </div>
-                           </form>
-                        </div>
                      </li>
                      <div class="topbar-divider d-none d-sm-block"></div>
                      <!-- Nav Item - User Information -->
@@ -107,7 +96,7 @@
                   <!-- Page Heading -->
                   <div class="d-sm-flex align-items-center justify-content-between mb-4">
                      <h1 class="h3 mb-0 text-gray-800">Gestão de Funcionários</h1>
-                     <a href="#" data-toggle="modal" data-target="#usersModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                     <a href="#" id="addFunc" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                      <i class="fas fa-user fa-sm text-white-50"></i> Cadastrar Funcionário
                      </a>
                   </div>
@@ -128,43 +117,14 @@
                                     <th>E-mail</th>
                                     <th>Bloqueado</th>
                                     <th>Ativo</th>
-                                    <th>Editar</th>
+                                    <th>-</th>
+                                    <th>-</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <?php 
-                                    $query = "SELECT u.id, u.full_name, u.login, u.cpf, u.phone, u.email, u.status, u.blocked, p.name FROM users u INNER JOIN permission p ON u.permission = p.id";
-                                    $result = mysqli_query($conexao, $query);
-                                    
-                                    while($row = mysqli_fetch_array($result))
-                                    {
-                                        if ($row['status'] == 1) {
-                                            $status = "Ativo";
-                                        }
-                                        else {
-                                            $status = "Inativo";
-                                        }
-                                        
-                                        if ($row['blocked'] == 1) {
-                                            $blocked = "Sim";
-                                        }
-                                        else {
-                                            $blocked = "Não";
-                                        }
-                                        
-                                        echo "<tr>";
-                                        echo "<td>".$row['full_name']."</td>";
-                                        echo "<td>".$row['login']."</td>";
-                                        echo "<td>".$row['name']."</td>";
-                                        echo "<td>".$row['cpf']."</td>";
-                                        echo "<td>".$row['phone']."</td>";
-                                        echo "<td>".$row['email']."</td>";
-                                        echo "<td>".$blocked."</td>";
-                                        echo "<td>".$status."</td>";
-                                        echo "<td><a href='#' class='editUserButton' data-id='".$row['id']."'>Editar</a></td>";
-                                        echo "</tr>";
-                                    }
-                                    ?>
+                                    include('api/userslist.php');
+                                 ?>
                               </tbody>
                            </table>
                         </div>
@@ -253,7 +213,7 @@
                      </div>
                      <div class="profile-sidebar">
                         <div class="profile-userpic">
-                            <img id="insertImgPreview" src="" class="img-responsive" alt="">
+                            <img id="imgPreview" src="" class="img-responsive" alt="">
                         </div>
                      </div>
                   </form>
@@ -262,48 +222,7 @@
          </div>
       </div>
       <!-- Insert Users Modal -->
-      <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-               <div class="insertUserForm">
-                  <h1 class="h3 mb-0 text-gray-800 text-center">Edição de Funcionário</h1>
-                  <form name="userForm" id="userForm">
-                     <div class="showrequire"><input type="text" id="full_name_edit" class="form-control bg-light border-0 small" placeholder="Nome Completo" required></div>
-                     <div class="showrequire"><input type="text" id="login_edit" class="form-control bg-light border-0 small" placeholder="Login" required></div>
-                     <div>
-                        <input type="password" id="password_edit" class="form-control bg-light border-0 small" placeholder="Senha" required>
-                        <a href="#" id="showpassedit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm showpass">
-                        <i class="fas fa-eye fa-sm text-white-50"></i>
-                        </a>
-                     </div>
-                     <select id="permission_edit" class="form-control bg-light border-0 small">
-                     <?php 
-                        $query = "SELECT * FROM permission";
-                        $result = mysqli_query($conexao, $query);
-                        
-                        while($row = mysqli_fetch_array($result))
-                        {
-                            echo "<option value='".$row['id']."'>";
-                            echo $row['name'];
-                            echo "</option>";
-                        }
-                        
-                        ?>
-                     </select>
-                     <div class="showrequire"><input type="text" id="cpf_edit" class="form-control bg-light border-0 small" placeholder="CPF" required></div>
-                     <div class="showrequire"><input type="text" id="phone_edit" class="form-control bg-light border-0 small" placeholder="Telefone" required></div>
-                     <div class="showrequire"><input type="email" id="email_edit" class="form-control bg-light border-0 small" placeholder="E-mail" required></div>
-                     <div>
-                        <input type="file" id="picture_edit" accept=".jpg, .png" required>
-                        <a href="#" id="saveEditedUser" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                        <i class="fas fa-user fa-sm text-white-50"></i> Salvar
-                        </a>
-                     </div>
-                  </form>
-               </div>
-            </div>
-         </div>
-      </div>
+
       <!-- Bootstrap core JavaScript-->
       <script src="vendor/jquery/jquery.min.js"></script>
       <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -319,6 +238,6 @@
       <script src="scripts/index.js" type="text/javascript"></script>
       <script src="scripts/users.js" type="text/javascript"></script>
       <script src="plugins/jquery.mask.min.js" type="text/javascript"></script>
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+      <script src="js/sweetalert2.all.min.js"></script>
    </body>
 </html>

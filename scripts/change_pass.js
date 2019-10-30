@@ -11,23 +11,26 @@ $(document).ready(function() {
             
             if (new_password != repeat_pasword) {
                 $('#result_answer').text('As novas senhas não coincidem');
+                return;
             }
-            else if (new_password == oldPassword) {
+            
+            if (new_password == oldPassword) {
                 $('#result_answer').text('A nova senha não pode ser igual a antiga');
+                return;
             }
-            else {
-                $.ajax({
-                    url: 'api/change_pass.php',
-                    method: 'post',
-                    data: 'oldpass=' + oldPassword + '&newpass=' + new_password + '&repeat_pass=' + repeat_pasword 
-                }).then(function(response) {
-                    if (response == 'success')
-                    window.location.href = 'index.php';
-                    
-                    if (response == 'wrong_password')
-                    $('#result_answer').text('A senha atual informada não coincide com a senha atual real!');
-                });
-            }
+
+            $.ajax({
+                url: 'api/change_pass.php',
+                method: 'post',
+                data: 'oldpass=' + oldPassword + '&newpass=' + new_password + '&repeat_pass=' + repeat_pasword 
+            }).then(function(response) {
+                if (response == 'success')
+                window.location.href = 'index.php';
+                
+                if (response == 'wrong_password')
+                $('#result_answer').text('A senha atual informada não coincide com a senha atual real!');
+            });
+            
         }
     });
     

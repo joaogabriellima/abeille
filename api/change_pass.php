@@ -12,13 +12,22 @@ if ($password != $_SESSION['password']) {
     return;
 }
 
-unset($_SESSION['password']);
-unset($_SESSION['first_access']);
-$query = "UPDATE users SET password = '$new_password', first_access = 0 WHERE id = '$id'";
-$result = mysqli_query($conexao, $query);
-echo "success";
-exit();
-
+try {
+    unset($_SESSION['password']);
+    unset($_SESSION['first_access']);
+    $query = "UPDATE users SET password = '$new_password', first_access = 0 WHERE id = '$id'";
+    $result = mysqli_query($conexao, $query);
+    
+    $permissionquery = "SELECT permission as permission FROM users WHERE id = {$id}";
+    $permissionresult = mysqli_query($conexao, $permissionquery);
+    $data = mysqli_fetch_assoc($permissionresult);
+    
+    echo $data['permission'];
+    exit();
+}
+catch(Exception $e) {
+    echo json_encode(array('error' => array('msg' => $e->getMessage(), 'code' => $e->getCode(),),));
+}
 
 function CreateLoginSession($row) {
     $_SESSION['id'] = $row['id'];

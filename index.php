@@ -1,5 +1,6 @@
 <?php
     include('api/login_verify.php');
+    include('api/check_attendance.php');
     require('api/conexao.php');
 ?>
 
@@ -23,6 +24,7 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="custom_css/custom.css" rel="stylesheet">
+    <link href="js/sweetalert2.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -76,10 +78,8 @@
         </ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
-
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <ul class="navbar-nav ml-auto">
@@ -102,11 +102,26 @@
                 </nav>
 
             <div class="container-fluid">
+
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Atendimento - Seja bem vindo, <?php echo $_SESSION['full_name']; ?></h1>
+                    <h3 class="h4 mb-0 text-gray-800">Atendimento ao cliente, seja bem vindo <b><?php echo $_SESSION['full_name']; ?></b></h3>
                 </div>
-            <div class="card shadow mb-4">
-            </div>
+
+    <hr />
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0 text-gray-800">No momento existe(m) <b><u><?php 
+                        $query = "SELECT count(*) as total FROM attendance WHERE status = 1";
+                        $result = mysqli_query($conexao, $query);
+                        $data = mysqli_fetch_assoc($result);
+                        echo $data['total'] != null ? $data['total'] : '0' ?></u></b> atendimento(s) pendente(s)!</h6>
+                </div>
+
+                <hr />
+                <div class="mb-4 justify-content-between">
+                    <a href="#" id="start_attendance" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-success">
+                        <i class="fas fa-user fa-sm text-white-50"></i> Iniciar Próximo Atendimento
+                    </a>
+                </div>
 
             <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
@@ -140,46 +155,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="usersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="insertUserForm">
-                    <h1 class="h3 mb-0 text-gray-800 text-center">Cadastro de Funcionário</h1>
-                    <form name="userForm" id="userForm">
-                        <div><input type="text" id="full_name" class="form-control bg-light border-0 small" placeholder="Nome Completo" required></div>
-                        <div><input type="text" id="login" class="form-control bg-light border-0 small" placeholder="Login" required></div>
-                        <div><input type="password" id="password" value="@abeille199" readonly class="form-control bg-light border-0 small" placeholder="Senha" required></div>
-                        <div class="showpass" id="showpass" style="background-color: #ccc; width: 40px; height: 20px;" required>
-                            <span style="color: black;">senha</span>
-                        </div>
-                            
-                        <select id="permission" class="form-control bg-light border-0 small">
-                        <?php 
-                            $query = "SELECT * FROM permission";
-                            $result = mysqli_query($conexao, $query);
-           
-                            while($row = mysqli_fetch_array($result))
-                            {
-                                echo "<option value='".$row['id']."'>";
-                                echo $row['name'];
-                                echo "</option>";
-                            }
-                        ?>
-                        </select>
-                        <div><input type="text" id="cpf" class="form-control bg-light border-0 small" placeholder="CPF" required></div>
-                        <div><input type="text" id="phone" class="form-control bg-light border-0 small" placeholder="Telefone" required></div>
-                        <div><input type="email" id="email" class="form-control bg-light border-0 small" placeholder="E-mail" required></div>
-                        <div><input type="file" id="picture" accept=".jpg, .png" required></div>
-
-                        <a href="#" id="saveUser" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-user fa-sm text-white-50"></i> Cadastrar
-                        </a>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -199,6 +174,6 @@
     <script src="scripts/index.js" type="text/javascript"></script>
     <script src="scripts/users.js" type="text/javascript"></script>
     <script src="plugins/jquery.mask.min.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="js/sweetalert2.all.min.js"></script>
 </body>
 </html>

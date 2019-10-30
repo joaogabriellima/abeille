@@ -1,8 +1,8 @@
 <?php
-include('api/permission_verify.php');
+include('permission_verify.php');
 require('conexao.php');
 
-$id = $_PODT['id'];
+$id = $_POST['id'];
 $nome = $_POST['full_name'];
 $login = $_POST['login'];
 $cpf = $_POST['cpf'];

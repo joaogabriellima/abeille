@@ -27,7 +27,7 @@ try {
                 CreateLoginSession($rowDTO);
                 
                 if ($rowDTO['first_access'] == 1) {
-                    echo "_first";
+                    echo "success_first";
                     $_SESSION['first_access'] = 1;
                     $_SESSION['password'] = $rowDTO['password'];
                     return;
