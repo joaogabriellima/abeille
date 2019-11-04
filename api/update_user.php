@@ -2,12 +2,10 @@
 session_start();
 
 include('permission_verify.php');
-require('conexao.php');
+include_once('conexao.php');o.php');
 
 $id = $_POST['id'];
-$nome = $_POST['full_name'];
 $login = $_POST['login'];
-$cpf = $_POST['cpf'];
 $pass = $_POST['password'];
 $permission = isset($_POST['permission']) ? $_POST['permission'] : null;
 $picture = $_POST['picture'];
@@ -15,7 +13,7 @@ $phone = $_POST['phone'];
 $email = $_POST['email'];
 
 try {
-    $query = "UPDATE users SET full_name = '$nome', login = '$login', cpf = '$cpf', password = '$pass',". ($permission != null ? " permission = '$permission'," : "") .
+    $query = "UPDATE users SET login = '$login', password = '$pass',". ($permission != null ? " permission = '$permission'," : "") .
     " picture = '$picture', phone = '$phone', email = '$email' WHERE id = '$id'";
     
     mysqli_query($conexao, $query);

@@ -24,7 +24,7 @@ $(document).ready(function() {
         $('#result_answer').text('');
         
         $.ajax({
-            url: 'api/login.php',
+            url: 'api/login_request.php',
             method: 'post',
             data: 'login=' + login + '&password=' + password  
         }).then(function(response) {

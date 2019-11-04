@@ -45,7 +45,7 @@
     <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="insertUserForm">
-            <h1 class="h3 mb-0 text-gray-800 text-center">Profile</h1>
+            <h1 class="h3 mb-0 text-gray-800 text-center">Meu Perfil</h1>
             <form name="userForm" id="userForm">
                 <div class="showrequire"><input type="text" id="profile_full_name" class="form-control bg-light border-0 small" placeholder="Nome Completo" required></div>
                 <div class="showrequire"><input type="text" id="profile_login" class="form-control bg-light border-0 small" placeholder="Login" required></div>

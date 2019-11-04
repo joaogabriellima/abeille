@@ -2,7 +2,7 @@
    include('api/login_verify.php');
    include('api/permission_verify.php');
    include('api/check_attendance.php');
-   require('api/conexao.php');
+   include_once('api/conexao.php');
    ?>
 <!DOCTYPE html>
 <html lang="en">

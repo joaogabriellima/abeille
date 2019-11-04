@@ -237,11 +237,9 @@ $(document).ready(function() {
     }
     
     function CreateEditObject() {
-        var name = $('#full_name').val();
         var login = $('#login').val();
         var password = $('#password').val();
         var permission = $('#permission').val();
-        var cpf = $('#cpf').val();
         var phone = $('#phone').val();
         var email = $('#email').val();
         var picture = $('#imgPreview').attr('src');
@@ -260,11 +258,9 @@ $(document).ready(function() {
         }
         
         
-        var objeto = 'full_name='  + name +
-        '&login='  + login +
+        var objeto = 'login='  + login +
         '&password='  + password +
         '&permission='  + permission +
-        '&cpf='  + cpf +
         '&phone='  + phone +
         '&email='  + email +
         '&picture=' + picture +
@@ -300,8 +296,10 @@ $(document).ready(function() {
     });
     
     function OpenEditModal(user) {
+        $('#full_name').prop('readonly', true);
+        $('#cpf').prop('readonly', true);
+
         $('#full_name').val(user.full_name);
-        $('#login').val(user.login);
         $('#password').val(user.password);
         $('#permission').val(user.permission);
         $('#cpf').val(user.cpf);

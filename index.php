@@ -1,7 +1,7 @@
 <?php
     include('api/login_verify.php');
     include('api/check_attendance.php');
-    require('api/conexao.php');
+    include_once('api/conexao.php');
 ?>
 
 <!DOCTYPE html>
@@ -92,10 +92,12 @@
     <hr />
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h6 class="mb-0 text-gray-800">No momento existe(m) <b><u><?php 
-                        $query = "SELECT count(*) as total FROM attendance WHERE status = 1";
+                        $query = "SELECT * FROM attendance WHERE status = 1";
                         $result = mysqli_query($conexao, $query);
-                        $data = mysqli_fetch_assoc($result);
-                        echo $data['total'] != null ? $data['total'] : '0' ?></u></b> atendimento(s) pendente(s)!</h6>
+                        $rows = mysqli_num_rows($result);
+                        // echo $data['total'] != null ? $data['total'] : '0'
+                        echo $rows;
+                        ?></u></b> atendimento(s) pendente(s)!</h6>
                 </div>
 
                 <hr />

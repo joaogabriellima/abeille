@@ -1,7 +1,7 @@
 <?php 
 include('login_verify.php');
 include('permission_verify.php');
-require('conexao.php');
+include_once('conexao.php');
 
 $id = $_POST['id'];
 $query = "SELECT * FROM users WHERE id = '$id'";

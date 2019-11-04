@@ -1,6 +1,6 @@
 <?php
 include('./permission_verify.php');
-require('conexao.php');
+include_once('conexao.php');o.php');
 
 $nome = $_POST['full_name'];
 $login = $_POST['login'];

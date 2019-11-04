@@ -1,5 +1,5 @@
 <?php 
-require('conexao.php');
+include_once('conexao.php');
 
 $login = $_POST['login'];
 $password = $_POST['password'];

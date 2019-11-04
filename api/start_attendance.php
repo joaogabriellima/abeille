@@ -1,7 +1,7 @@
 <?php 
 
 include('login_verify.php');
-include('conexao.php');
+include_once('conexao.php');
 
 $userLogin = $_SESSION['id'];
 
@@ -54,16 +54,12 @@ function StartAttendance() {
     $data = mysqli_fetch_assoc(CheckAttendance());
     $attendanceId = $data['id'];
     $preDate = new DateTime();
-    $start_date = $preDate->format('Y-m-d H:i:sP');
 
     $_SESSION['attendance_on_progress'] = true;
-    $_SESSION['attendance_start_time'] = $preDate;
     $_SESSION['attendance_id'] = $attendanceId;
     
-    $updateQuery = "UPDATE attendance SET id_user = $userLogin, status = 2, start_time = '$start_date' WHERE id = $attendanceId";
-    $result = mysqli_query($conexao, $updateQuery);
-    
-    CreateAttendanceSession($result);
+    $updateQuery = "UPDATE attendance SET id_user = $userLogin, status = 2, start_time = NOW() WHERE id = $attendanceId";
+    mysqli_query($conexao, $updateQuery);
 }
 
 

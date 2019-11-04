@@ -1,6 +1,6 @@
 <?php
     include('api/login_verify.php');
-    require('api/conexao.php');
+    include_once('api/conexao.php');
 
     if (!isset($_SESSION['attendance_on_progress'])) {
         header('Location: ../../abeille/index.php');
@@ -97,7 +97,7 @@
 
 
                 <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Atendimentos - <?php $_SESSION['attendance_start_time'] ?></h6>
+              
             </div>
             <div class="card-body">
               <div class="table-responsive">
