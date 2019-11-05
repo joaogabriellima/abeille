@@ -11964,7 +11964,11 @@
                         .bg-login-image {
                             background: url('../img/login.png');         
                             width: 100%;
-                            height: 300px;
+                            height: 100%;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                            margin-left: 40px;
                         }
                         
                         .bg-register-image {
