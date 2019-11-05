@@ -153,6 +153,9 @@ $(document).ready(function() {
     }
     
     function OpenEditModal(user) {
+        $('#profile_full_name').prop('readonly', true);
+        $('#profile_cpf').prop('readonly', true);
+
         $('#profile_full_name').val(user.full_name);
         $('#profile_login').val(user.login);
         $('#profile_password').val(user.password);

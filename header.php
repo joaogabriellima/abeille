@@ -48,9 +48,9 @@
             <h1 class="h3 mb-0 text-gray-800 text-center">Meu Perfil</h1>
             <form name="userForm" id="userForm">
                 <div class="showrequire"><input type="text" id="profile_full_name" class="form-control bg-light border-0 small" placeholder="Nome Completo" required></div>
-                <div class="showrequire"><input type="text" id="profile_login" class="form-control bg-light border-0 small" placeholder="Login" required></div>
+                <div class="showrequire"><input type="text" id="profile_login" readonly class="form-control bg-light border-0 small" placeholder="Login" required></div>
                 <div>
-                <input type="password" id="profile_password" value="@abeille199" readonly class="form-control bg-light border-0 small" placeholder="Senha" required>
+                <input type="password" id="profile_password" class="form-control bg-light border-0 small" placeholder="Senha" required>
                 <a href="#" id="profile_showpass" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm showpass">
                 <i class="fas fa-eye fa-sm text-white-50"></i>
                 </a>

@@ -2,7 +2,7 @@
 session_start();
 
 include('permission_verify.php');
-include_once('conexao.php');o.php');
+include_once('conexao.php');
 
 $id = $_POST['id'];
 $login = $_POST['login'];
