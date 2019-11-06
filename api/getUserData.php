@@ -11,7 +11,9 @@ try {
     $row = mysqli_num_rows($result);
     
     if ($row == 1){
-        echo json_encode(mysqli_fetch_array($result));
+        $resArray = mysqli_fetch_array($result);
+        $resArray['picture'] = $resArray['picture'] != null ? str_replace(' ', '+', $resArray['picture']) : null;
+        echo json_encode($resArray);
         return;
     }
 }

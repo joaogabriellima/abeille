@@ -70,7 +70,7 @@ function CreateLoginSession($row) {
     $_SESSION['id'] = $row['id'];
     $_SESSION['login'] = $row['login'];
     $_SESSION['full_name'] = $row['full_name'];
-    $_SESSION['picture'] = $row['picture'] != null ? $row['picture'] : 'img/anon.jpg';
+    $_SESSION['picture'] = $row['picture'] != null ? str_replace(' ', '+', $row['picture']) : 'img/anon.jpg';
     $_SESSION['permission'] = $row['permission'];
 }
             
