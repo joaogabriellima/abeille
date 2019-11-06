@@ -92,13 +92,7 @@
 
     <hr />
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0 text-gray-800">No momento existe(m) <b><u><?php 
-                        $query = "SELECT * FROM attendance WHERE status = 1";
-                        $result = mysqli_query($conexao, $query);
-                        $rows = $result != null && $result != 0 ? mysqli_num_rows($result) : 0;
-
-                        echo $rows;
-                        ?></u></b> atendimento(s) pendente(s)!</h6>
+                    <h6 class="mb-0 text-gray-800 pendent"></h6>
                 </div>
 
                 <hr />

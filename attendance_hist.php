@@ -26,6 +26,7 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="custom_css/custom.css" rel="stylesheet">
     <link href="js/sweetalert2.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 </head>
 
 <body id="page-top">
@@ -111,38 +112,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Número</th>
-                      <th>Atendente</th>
-                      <th>Status</th>
-                      <th>Nota do Atendimento</th>
-                      <th>Início</th>
-                      <th>Fim</th>
-                      <th>Total</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <?php 
-                    $query = "SELECT * FROM attendance a INNER JOIN users u ON a.id_user = u.id INNER JOIN status s ON s.id = a.status";
-                    $result = mysqli_query($conexao, $query);
-
-                    while($row = mysqli_fetch_array($result))
-                    {
-                      echo "<tr>";
-                      echo "<td>".$row['queue_number']."</td>";
-                      echo "<td>".$row['full_name']."</td>";
-                      echo "<td>".$row['name']."</td>";
-                      echo "<td>".$row['rate']."</td>";
-                      echo "<td>".$row['start_time']."</td>";
-                      echo "<td>".$row['end_time']."</td>";
-                      echo "<td>".$row['total_time']."</td>";
-                      echo "</tr>";
-                    }
-                  ?>
-                  </tbody>
-                </table>
+                <table id="table-attendance-hist"></table>
               </div>
             </div>
           </div>
@@ -199,6 +169,8 @@
     <script src="scripts/index.js" type="text/javascript"></script>
     <script src="plugins/jquery.mask.min.js" type="text/javascript"></script>
     <script src="js/sweetalert2.all.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="scripts/attend_hist.js"></script>
 </body>
 
 </html>

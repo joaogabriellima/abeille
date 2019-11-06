@@ -12,6 +12,7 @@ $userId = $_SESSION['id'];
 $stmt = mysqli_prepare($conexao, "SELECT * FROM attendance WHERE id_user = ? AND status = 2");
 $stmt->bind_param('s', $userId);
 $stmt->execute();
+$stmt->store_result();
 
 $rows = $stmt->num_rows;
 
