@@ -109,7 +109,7 @@
       </a>
       <!-- Insert Users Modal -->
       <div class="modal fade" id="usersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-         <div class="modal-dialog" role="document">
+         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                <div class="insertUserForm">
                   <h1 class="h3 mb-0 text-gray-800 text-center">Cadastro de Funcionário</h1>
@@ -122,20 +122,7 @@
                         <i class="fas fa-eye fa-sm text-white-50"></i>
                         </a>
                      </div>
-                     <select id="permission" class="form-control bg-light border-0 small">
-                     <?php 
-                        $query = "SELECT * FROM permission";
-                        $result = mysqli_query($conexao, $query);
-                        
-                        while($row = mysqli_fetch_array($result))
-                        {
-                            echo "<option value='".$row['id']."'>";
-                            echo $row['name'];
-                            echo "</option>";
-                        }
-                        
-                        ?>
-                     </select>
+                     <select id="permission" class="form-control bg-light border-0 small"></select>
                      <div class="showrequire"><input type="text" id="cpf" class="form-control bg-light border-0 small" placeholder="CPF" required></div>
                      <div class="showrequire"><input type="text" id="phone" class="form-control bg-light border-0 small" placeholder="Telefone" required></div>
                      <div class="showrequire"><input type="email" id="email" class="form-control bg-light border-0 small" placeholder="E-mail" required></div>

@@ -1,6 +1,6 @@
 <?php
-session_start();
 
+include_once('login_verify.php');
 include('permission_verify.php');
 include_once('conexao.php');
 

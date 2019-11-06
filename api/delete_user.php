@@ -12,9 +12,13 @@ try {
         return;
     }
     
-    $query = "DELETE FROM users WHERE id = '{$userId}'";
-    
-    mysqli_query($conexao, $query);
+    $attendanceStmt = mysqli_prepare($conexao, "DELETE FROM attendance WHERE id_user = ?");
+    $attendanceStmt->bind_param('s', $userId);
+    $attendanceStmt->execute();
+
+    $userStmt = mysqli_prepare($conexao, "DELETE FROM users WHERE id = ?");
+    $userStmt->bind_param('s', $userId);
+    $userStmt->execute();
     
     $response_array['status'] = 'success';
     http_response_code(200);

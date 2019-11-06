@@ -1,4 +1,5 @@
 <?php
+include_once('login_verify.php');
 include_once('conexao.php');
 
 if (isset($_SESSION['attendance_on_progress']) && $_SESSION['attendance_on_progress'] == true) {
@@ -8,10 +9,11 @@ if (isset($_SESSION['attendance_on_progress']) && $_SESSION['attendance_on_progr
 
 $userId = $_SESSION['id'];
 
-$query = "SELECT * FROM attendance WHERE id_user = $userId AND status = 2";
-$result = mysqli_query($conexao, $query);
-$result_parse = mysqli_fetch_assoc($result);
-$rows = mysqli_num_rows($result);
+$stmt = mysqli_prepare($conexao, "SELECT * FROM attendance WHERE id_user = ? AND status = 2");
+$stmt->bind_param('s', $userId);
+$stmt->execute();
+
+$rows = $stmt->num_rows;
 
 if ($rows > 0) {
     $_SESSION['attendance_on_progress'] = true;

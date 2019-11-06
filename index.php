@@ -95,8 +95,8 @@
                     <h6 class="mb-0 text-gray-800">No momento existe(m) <b><u><?php 
                         $query = "SELECT * FROM attendance WHERE status = 1";
                         $result = mysqli_query($conexao, $query);
-                        $rows = mysqli_num_rows($result);
-                        // echo $data['total'] != null ? $data['total'] : '0'
+                        $rows = $result != null && $result != 0 ? mysqli_num_rows($result) : 0;
+
                         echo $rows;
                         ?></u></b> atendimento(s) pendente(s)!</h6>
                 </div>

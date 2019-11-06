@@ -6,6 +6,9 @@ $(document).ready(function() {
     $('#phone_edit').mask('(00) 00000-0000');
     
     $('#addFunc').click(function() {
+        $('#full_name').prop('readonly', false);
+        $('#cpf').prop('readonly', false);
+
         $('#full_name').val('');
         $('#login').val('');
         $('#cpf').val('');
@@ -31,8 +34,15 @@ $(document).ready(function() {
     });
     
     $('#saveUser').click(function(e) {
-        if (!validateAllFields())
-        return;
+        if (!validateAllFields()) {
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Por favor, preencha todos os campos!',
+                type: 'error',
+                confirmButtonText: 'Ok'
+            });
+            return;
+        }
         
         var id = $(this).attr('data-id');
         
@@ -43,7 +53,7 @@ $(document).ready(function() {
         
         InsertUser();
     });
-
+    
     $(document).on('click', '.editUserButton', function(e) {
         e.preventDefault();
         
@@ -58,7 +68,7 @@ $(document).ready(function() {
             OpenEditModal(response);
         });
     });
-
+    
     $(document).on('click', '.deleteUserButton', function(e) {
         e.preventDefault();      
         var id = $(this).attr('data-id');
@@ -77,9 +87,10 @@ $(document).ready(function() {
             }
         });
     });
-
-
+    
+    
     SearchAll();
+    PopulateDropdown();
     
     function SearchAll() {
         $.ajax({
@@ -95,7 +106,7 @@ $(document).ready(function() {
                     source.push(row);
                 });
             }
-                   
+            
             $('#table-users').DataTable({
                 data: source,
                 columns: [
@@ -112,6 +123,7 @@ $(document).ready(function() {
                 autoWidth: false,
                 paging: true,
                 lengthChange: false,
+                destroy: true,
                 language: {
                     "emptyTable": "Não há dados disponíveis",
                     "zeroRecords": "Não há dados disponíveis",
@@ -144,8 +156,6 @@ $(document).ready(function() {
                 text: 'Um erro ocorreu ao pesquisar os usuários',
                 type: 'error',
                 confirmButtonText: 'Ok'
-            }).then(result => {
-                location.reload();
             });
         });
     }
@@ -160,6 +170,24 @@ $(document).ready(function() {
             '<a href="#" class="editUserButton" data-id="'+e.id+'">Editar</a>',
             '<a href="#" class="deleteUserButton text-danger" data-id="'+ e.id +'"><i class="fas fa-trash-alt"></i></a>'
         ];
+    }
+
+    function PopulateDropdown() {
+        $.ajax({
+            url: 'api/get_permission.php',
+            method: 'get',
+        }).done(function(response) {
+            response = JSON.parse(response);
+            var permission = $('#permission');
+
+            response.forEach(function(e) {
+                permission.append('<option value="' + e.id +'">'+ e.name +'</option>');
+            });
+            
+        })
+        .catch(function(error) {
+
+        });
     }
     
     function InsertUser() {
@@ -176,9 +204,8 @@ $(document).ready(function() {
                     text: 'Um usuário já está cadastrado com esses dados!',
                     type: 'error',
                     confirmButtonText: 'Ok'
-                }).then(result => {
-                    location.reload();
                 });
+                SearchAll();
                 return;
             }
             
@@ -187,19 +214,16 @@ $(document).ready(function() {
                 text: 'Usuário inserido com sucesso',
                 type: 'success',
                 confirmButtonText: 'Ok'
-            }).then(result => {
-                location.reload();
             });
-            
+            SearchAll();        
         }).catch(function(error) {
             Swal.fire({
                 title: 'Erro!',
                 text: 'Um erro ocorreu ao inserir o usuário',
                 type: 'error',
                 confirmButtonText: 'Ok'
-            }).then(result => {
-                location.reload();
             });
+            SearchAll();
         });
     }
     
@@ -212,24 +236,21 @@ $(document).ready(function() {
             method: 'post',
             data: param
         }).done(function(response) {
-            CleanAndClose();                
+            CleanAndClose();   
+            SearchAll();             
             Swal.fire({
                 title: 'Sucesso!',
                 text: 'Usuário atualizado com sucesso',
                 type: 'success',
                 confirmButtonText: 'Ok'
-            }).then(result => {
-                location.reload();
-            });
-            
+            });  
         }).catch(function(error) {
+            SearchAll();
             Swal.fire({
                 title: 'Erro!',
                 text: 'Um erro ocorreu ao atualizar o usuário',
                 type: 'error',
                 confirmButtonText: 'Ok'
-            }).then(result => {
-                location.reload();
             });
         });   
     }
@@ -240,22 +261,20 @@ $(document).ready(function() {
             method: 'post',
             data: 'userid=' + id
         }).done(success => {
+            SearchAll();
             Swal.fire({
                 title: 'Sucesso!',
                 text: 'Usuário excluído com sucesso',
                 type: 'success',
                 confirmButtonText: 'Ok'
-            }).then(result => {
-                location.reload();
             });
         }).catch(error => {
+            SearchAll();
             Swal.fire({
                 title: 'Erro!',
                 text: 'Um erro ocorreu ao excluir o usuário!',
                 type: 'error',
                 confirmButtonText: 'Ok'
-            }).then(result => {
-                location.reload();
             });
         });
     }
@@ -334,9 +353,8 @@ $(document).ready(function() {
                 text: 'Ocorreu uma falha ao editar o usuário',
                 type: 'error',
                 confirmButtonText: 'Ok'
-            }).then(result => {
-                location.reload();
             });
+            SearchAll();
             return;
         }
         
@@ -383,15 +401,13 @@ $(document).ready(function() {
         $('#cpf').prop('readonly', true);
         
         $('#full_name').val(user.full_name);
+        $('#login').val(user.login);
         $('#password').val(user.password);
         $('#permission').val(user.permission);
         $('#cpf').val(user.cpf);
         $('#phone').val(user.phone);
         $('#email').val(user.email);
         $('#picture').attr('file', 'anon.jpg');
-        
-        // var image = user.picture.replace(' ', '+');
-        // $('#imgPreview').attr('src', image);
         
         $('#imgPreview').attr('src', user.picture);
         $('#saveUser').attr('data-id', user.id);
