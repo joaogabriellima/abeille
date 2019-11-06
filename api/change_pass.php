@@ -1,8 +1,7 @@
 <?php 
-include_once('conexao.php');o.php');
+include_once('conexao.php');
 include('login_verify.php');
 include('check_attendance.php');
-session_start();
 
 $password = $_POST['oldpass'];
 $new_password = $_POST['newpass'];

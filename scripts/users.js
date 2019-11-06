@@ -306,8 +306,11 @@ $(document).ready(function() {
         $('#phone').val(user.phone);
         $('#email').val(user.email);
         $('#picture').attr('file', 'anon.jpg');
-        $('#imgPreview').attr('src', user.picture);
+
+        // var image = user.picture.replace(' ', '+');
+        // $('#imgPreview').attr('src', image);
         
+        $('#imgPreview').attr('src', user.picture);
         $('#saveUser').attr('data-id', user.id);
         
         $('#usersModal').modal('show');

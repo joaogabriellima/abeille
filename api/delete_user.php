@@ -2,7 +2,7 @@
 
 include('login_verify.php');
 include('permission_verify.php');
-include_once('conexao.php');o.php');
+include_once('conexao.php');
 
 try {
     $userId = $_POST['userid'];
