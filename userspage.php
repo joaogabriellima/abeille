@@ -20,6 +20,7 @@
       <link href="css/sb-admin-2.min.css" rel="stylesheet">
       <link href="custom_css/custom.css" rel="stylesheet">
       <link href="js/sweetalert2.css" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
    </head>
    <body id="page-top">
       <div id="wrapper">
@@ -80,29 +81,10 @@
                      </div>
                      <div class="card-body">
                         <div class="table-responsive">
-                           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                              <thead>
-                                 <tr>
-                                    <th>Nome</th>
-                                    <th>Login</th>
-                                    <th>Permissão</th>
-                                    <th>CPF</th>
-                                    <th>Telefone</th>
-                                    <th>E-mail</th>
-                                    <th>Bloqueado</th>
-                                    <th>Ativo</th>
-                                    <th>-</th>
-                                    <th>-</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <?php 
-                                    include('api/userslist.php');
-                                 ?>
-                              </tbody>
-                           </table>
+                           <table id="table-users"></table>
                         </div>
                      </div>
+
                   </div>
                </div>
                <!-- /.container-fluid -->

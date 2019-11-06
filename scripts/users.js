@@ -43,6 +43,124 @@ $(document).ready(function() {
         
         InsertUser();
     });
+
+    $(document).on('click', '.editUserButton', function(e) {
+        e.preventDefault();
+        
+        var id = $(this).attr('data-id');
+        
+        $.ajax({
+            url: 'api/getUserData.php',
+            method: 'post',
+            data: 'id=' + id
+        }).then(function(response) {
+            response = JSON.parse(response);
+            OpenEditModal(response);
+        });
+    });
+
+    $(document).on('click', '.deleteUserButton', function(e) {
+        e.preventDefault();      
+        var id = $(this).attr('data-id');
+        
+        Swal.fire({
+            title: 'Aviso',
+            text: 'Você realmente quer excluir esse usuário? Essa é uma ação irreversível',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Excluir',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                DeleteUser(id);
+                return;
+            }
+        });
+    });
+
+
+    SearchAll();
+    
+    function SearchAll() {
+        $.ajax({
+            url: 'api/userslist.php',
+            method: 'get',
+        }).done(function(response) {
+            response = JSON.parse(response);
+            var source = [];
+            
+            if (response) {
+                response.forEach(function(e) {
+                    var row = ParseRow(e);
+                    source.push(row);
+                });
+            }
+                   
+            $('#table-users').DataTable({
+                data: source,
+                columns: [
+                    { title: "Nome", sortable: false },
+                    { title: "E-mail", sortable: false },
+                    { title: "Login", sortable: false },
+                    { title: "Telefone", sortable: false },
+                    { title: "Ativo", sortable: false },
+                    { title: "Editar", sortable: false },
+                    { title: "Excluir", sortable: false }
+                ],
+                width: '100%',
+                height: '100%',
+                autoWidth: false,
+                paging: true,
+                lengthChange: false,
+                language: {
+                    "emptyTable": "Não há dados disponíveis",
+                    "zeroRecords": "Não há dados disponíveis",
+                    "info": "Exibindo página <b>_PAGE_</b> de <b>_PAGES_</b> - _MAX_ resultado(s)",
+                    "infoEmpty": "Não há dados disponíveis",
+                    "infoFiltered": "(filtrado de <b>_MAX_</b> itens no total)",
+                    "search": "Pesquisar: ",
+                    'searchPlaceholder': 'Insira o texto aqui',
+                    "lengthMenu": "_MENU_ Resultados",
+                    "oPaginate": {
+                        "sFirst": "Primeira",
+                        "sPrevious": "Anterior",
+                        "sNext": "Próxima",
+                        "sLast": "Última"
+                    },
+                    buttons: {
+                        copyTitle: 'Copiar Registros',
+                        copySuccess: {
+                            _: 'Copiados %d registros',
+                            1: 'Copiado 1 registro'
+                        }
+                    }
+                },
+                order: [[1, 'asc']]
+            });
+            
+        }).catch(function(error) {
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Um erro ocorreu ao pesquisar os usuários',
+                type: 'error',
+                confirmButtonText: 'Ok'
+            }).then(result => {
+                location.reload();
+            });
+        });
+    }
+    
+    function ParseRow(e) {
+        return [
+            e.full_name,
+            e.email,
+            e.login,
+            e.phone,
+            e.status ? 'Sim' : 'Não',
+            '<a href="#" class="editUserButton" data-id="'+e.id+'">Editar</a>',
+            '<a href="#" class="deleteUserButton text-danger" data-id="'+ e.id +'"><i class="fas fa-trash-alt"></i></a>'
+        ];
+    }
     
     function InsertUser() {
         var param = CreateObject();
@@ -115,41 +233,6 @@ $(document).ready(function() {
             });
         });   
     }
-    
-    
-    $('.editUserButton').click(function(e) {
-        e.preventDefault();
-        
-        var id = $(this).attr('data-id');
-        
-        $.ajax({
-            url: 'api/getUserData.php',
-            method: 'post',
-            data: 'id=' + id
-        }).then(function(response) {
-            response = JSON.parse(response);
-            OpenEditModal(response);
-        });
-    });
-    
-    $('.deleteUserButton').click(function(e) {
-        e.preventDefault();      
-        var id = $(this).attr('data-id');
-        
-        Swal.fire({
-            title: 'Aviso',
-            text: 'Você realmente quer excluir esse usuário? Essa é uma ação irreversível',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Excluir',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.value) {
-                DeleteUser(id);
-                return;
-            }
-        });
-    });
     
     function DeleteUser(id) {
         $.ajax({
@@ -298,7 +381,7 @@ $(document).ready(function() {
     function OpenEditModal(user) {
         $('#full_name').prop('readonly', true);
         $('#cpf').prop('readonly', true);
-
+        
         $('#full_name').val(user.full_name);
         $('#password').val(user.password);
         $('#permission').val(user.permission);
@@ -306,7 +389,7 @@ $(document).ready(function() {
         $('#phone').val(user.phone);
         $('#email').val(user.email);
         $('#picture').attr('file', 'anon.jpg');
-
+        
         // var image = user.picture.replace(' ', '+');
         // $('#imgPreview').attr('src', image);
         

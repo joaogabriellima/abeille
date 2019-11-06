@@ -35,4 +35,11 @@
     -webkit-border-radius: 50% !important;
     -moz-border-radius: 50% !important;
     border-radius: 50% !important;
-  }
+}
+
+#table-users {
+    border: none;
+    color: #3c4045;
+}
+
+#table-users tr:nth-child(even){background-color: #fff7eb;}

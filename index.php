@@ -25,6 +25,7 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="custom_css/custom.css" rel="stylesheet">
     <link href="js/sweetalert2.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 </head>
 
 <body id="page-top">

@@ -91,3 +91,5 @@
 <script src="vendor/chart.js/Chart.min.js"></script>
 <!-- Page level custom scripts -->
 <script src="scripts/profile.js" type="text/javascript"></script>
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
