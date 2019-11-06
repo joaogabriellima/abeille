@@ -28,14 +28,25 @@ $(document).ready(function() {
             method: 'post',
             data: 'login=' + login + '&password=' + password  
         }).then(function(response) {
-            if (response == 'success_adm')
-            window.location.href = 'attendance_hist.php';
-
-            if (response == 'success_atd')
-            window.location.href = 'index.php';
-                    
-            if (response == 'success_first')
-            window.location.href = 'change_password.php';
+            if (response == 'blocked_user') {
+                window.location.href = "blocked_user.php";
+                return;
+            }
+            
+            if (response == 'success_adm') {
+                window.location.href = 'attendance_hist.php';
+                return;
+            }
+            
+            if (response == 'success_atd') {
+                window.location.href = 'index.php';
+                return;
+            }
+            
+            if (response == 'success_first') {
+                window.location.href = 'change_password.php';
+                return;
+            }
             
             if (response == 'login error') {
                 $('#result_answer').text('Usuário ou senha incorretos');
@@ -45,6 +56,8 @@ $(document).ready(function() {
             
             if (response == 'tries error')
             $('#result_answer').text('Você fez tentativas demais, por favor, espere antes de tentar novamente');
+        }).catch(function(error) {
+
         });
         
     }

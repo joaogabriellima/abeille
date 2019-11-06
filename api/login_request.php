@@ -24,8 +24,13 @@ try {
         
         if ($row == 1){
             while($rowDTO = mysqli_fetch_array($result)) {
-                CreateLoginSession($rowDTO);
+                if ($rowDTO['blocked'] == 1) {
+                    echo "blocked_user";
+                    return;
+                }
                 
+                CreateLoginSession($rowDTO);
+
                 if ($rowDTO['first_access'] == 1) {
                     echo "success_first";
                     $_SESSION['first_access'] = 1;
