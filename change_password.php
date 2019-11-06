@@ -27,6 +27,7 @@
   
   <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript" src="scripts/change_pass.js"></script>
+  <link href="js/sweetalert2.css" rel="stylesheet">
 </head>
 
 <body class="bg-gradient-primary">
@@ -86,7 +87,7 @@
   
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
-  
+  <script src="js/sweetalert2.all.min.js"></script>
 </body>
 
 </html>

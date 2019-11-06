@@ -10,25 +10,46 @@ $(document).ready(function() {
         && repeat_pasword != null && repeat_pasword != '') {
             
             if (new_password != repeat_pasword) {
-                $('#result_answer').text('As novas senhas não coincidem');
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'As novas senhas não coincidem!',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
                 return;
             }
             
             if (new_password == oldPassword) {
-                $('#result_answer').text('A nova senha não pode ser igual a antiga');
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'A nova senha não pode ser igual a antiga!',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
                 return;
             }
-
+            
             $.ajax({
                 url: 'api/change_pass.php',
                 method: 'post',
                 data: 'oldpass=' + oldPassword + '&newpass=' + new_password + '&repeat_pass=' + repeat_pasword 
-            }).then(function(response) {
-                if (response == 'success')
-                window.location.href = 'index.php';
-                
-                if (response == 'wrong_password')
-                $('#result_answer').text('A senha atual informada não coincide com a senha atual real!');
+            }).done(function(response) {
+                if (typeof response === 'string')
+                {
+                    if (response == "1") {
+                        window.location.href = "attendance_hist.php";
+                        return;
+                    }
+
+                    window.location.href = "index.php";
+                }
+            }).catch(function(error) {
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Ocorreu um erro ao alterar a senha',
+                    type: 'error',
+                    confirmButtonText: 'Ok'
+                });
             });
             
         }

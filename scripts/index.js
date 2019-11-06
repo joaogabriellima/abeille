@@ -9,12 +9,7 @@ $(document).ready(function() {
         }).done(function(response) {
             $('.pendent').html('No momento existe(m) <b><u>' + response + '</b></u> atendimento(s) pendente(s)');
         }).catch(function(error) {
-            Swal.fire({
-                title: 'Erro!',
-                text: 'Ocorreu um erro ao coletar os atendimentos pendentes',
-                type: 'error',
-                confirmButtonText: 'Ok'
-            });
+
         });
     }
 
