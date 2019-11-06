@@ -68,6 +68,20 @@ $(document).ready(function() {
             OpenEditModal(response);
         });
     });
+
+    $(document).on('click', '.unblockUserButton', function(e) {
+        e.preventDefault();
+        
+        var id = $(this).attr('data-id');
+        
+        $.ajax({
+            url: 'api/unblock_user.php',
+            method: 'post',
+            data: 'id=' + id
+        }).then(function(response) {
+            SearchAll();
+        });
+    });
     
     $(document).on('click', '.deleteUserButton', function(e) {
         e.preventDefault();      
@@ -115,8 +129,8 @@ $(document).ready(function() {
                     { title: "Login", sortable: false },
                     { title: "Telefone", sortable: false },
                     { title: "Ativo", sortable: false },
-                    { title: "Editar", sortable: false },
-                    { title: "Excluir", sortable: false }
+                    { title: "Bloqueado", sortable: false },
+                    { title: "Ações", sortable: false }
                 ],
                 width: '100%',
                 height: '100%',
@@ -167,8 +181,10 @@ $(document).ready(function() {
             e.login,
             e.phone,
             e.status ? 'Sim' : 'Não',
-            '<a href="#" class="editUserButton" data-id="'+e.id+'">Editar</a>',
-            '<a href="#" class="deleteUserButton text-danger" data-id="'+ e.id +'"><i class="fas fa-trash-alt"></i></a>'
+            e.blocked == 1 ? 'Sim' : 'Não',
+            '<a href="#" class="unblockUserButton text-muted" data-id="'+e.id+'"><i class="fas fa-ban" title="Desbloquear"></i></a>' +
+            '<a href="#" class="editUserButton text-info" data-id="'+e.id+'"><i class="fas fa-pen-alt" title="Editar"></i></a>' +
+            '<a href="#" class="deleteUserButton text-danger" data-id="'+ e.id +'"><i class="fas fa-trash-alt" title="Excluir"></i></a>'
         ];
     }
 
