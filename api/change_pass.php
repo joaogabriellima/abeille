@@ -22,9 +22,9 @@ try {
     $stmt->bind_param('sss', $new_password, $first_access, $id);
     $stmt->execute();
     
-    // $permissionquery = "SELECT permission as permission FROM users WHERE id = $id";
-    // $permissionresult = mysqli_query($conexao, $permissionquery);
-    // $data = mysqli_fetch_assoc($permissionresult);
+    $permissionquery = "SELECT permission as permission FROM users WHERE id = $id";
+    $permissionresult = mysqli_query($conexao, $permissionquery);
+    $data = mysqli_fetch_assoc($permissionresult);
     
     echo $data['permission'];
 }
