@@ -132,7 +132,7 @@
                             <input type="file" id="picture" accept=".jpg, .png" required>
                         </div>
                         <div class="col-md-6">
-                            <a href="#" id="saveUser" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="width: 150px; margin-top: 15px;">
+                            <a href="#" id="saveUser" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right" style="width: 150px; margin-top: 15px;">
                                 <i class="fas fa-user fa-sm text-white-50"></i> Salvar
                             </a>
                         </div>
