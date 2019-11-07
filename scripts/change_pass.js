@@ -36,6 +36,16 @@ $(document).ready(function() {
             }).done(function(response) {
                 if (typeof response === 'string')
                 {
+                    if (response == "wrong_password") {
+                        Swal.fire({
+                            title: 'Erro!',
+                            text: 'A senha atual informada não corresponde a senha atual real!',
+                            type: 'error',
+                            confirmButtonText: 'Ok'
+                        });
+                        return;
+                    }
+
                     if (response == "1") {
                         window.location.href = "attendance_hist.php";
                         return;

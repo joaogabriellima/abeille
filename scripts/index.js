@@ -3,16 +3,34 @@ $(document).ready(function() {
     GetPendent();
 
     function GetPendent() {
+        CreateModal();
         $.ajax({
             url: 'api/get_pendent_attendances.php',
             method: 'get'
         }).done(function(response) {
+            $('body').loadingModal('destroy');
             $('.pendent').html('No momento existe(m) <b><u>' + response + '</b></u> atendimento(s) pendente(s)');
         }).catch(function(error) {
-
+            $('body').loadingModal('destroy');
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Ocorreu um erro ao pesquisar atendimentos!',
+                type: 'error',
+                confirmButtonText: 'Ok'
+            });
         });
     }
 
+    function CreateModal() {
+        $('body').loadingModal({
+            position: 'auto',
+            text: 'Carregando...',
+            color: '#fff',
+            opacity: '0.7',
+            backgroundColor: 'rgb(0,0,0)',
+            animation: 'doubleBounce'
+          });
+    }
 
 
     $('#start_attendance').click(function(e) {
