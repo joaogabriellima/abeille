@@ -12,9 +12,6 @@ $phone = $_POST['phone'];
 $email = $_POST['email'];
 $picture = $_POST['picture'];
 
-$picture_format = str_replace('data:image/png;base64,', '', $picture);
-$picture_format = str_replace(' ','+',$picture_format);
-
 $first_access = 1;
 $blocked = 0;
 $status = 1;
@@ -30,8 +27,8 @@ try {
     $stmt = mysqli_prepare($conexao, "INSERT INTO users (full_name, login, password, permission, first_access, picture, cpf, phone, email, blocked, status) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param('sssssssssss', $nome, $login, $pass, $permission, $first_access, $picture_format, $cpf, $phone, $email, $blocked, $status);
-    $stmt->send_long_data(5, base64_decode($picture_format));
+    $stmt->bind_param('sssssssssss', $nome, $login, $pass, $permission, $first_access, $picture, $cpf, $phone, $email, $blocked, $status);
+    $stmt->send_long_data(5, base64_decode($picture));
 
     mysqli_stmt_execute($stmt);
 
