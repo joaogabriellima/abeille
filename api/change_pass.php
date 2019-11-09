@@ -6,6 +6,7 @@ include('check_attendance.php');
 $password = $_POST['oldpass'];
 $new_password = $_POST['newpass'];
 $repeat_password = $_POST['repeat_pass'];
+$first_access = 0;
 $id = $_SESSION['id'];
 
 if ($password != $_SESSION['password']) {
@@ -17,8 +18,8 @@ try {
     unset($_SESSION['password']);
     unset($_SESSION['first_access']);
 
-    $stmt = mysqli_prepare($conexao, "UPDATE users SET password = '?', first_access = 0 WHERE id = ?");
-    $stmt->bind_param('si', $new_password, $id);
+    $stmt = mysqli_prepare($conexao, "UPDATE users SET password = ?, first_access = ? WHERE id = ?");
+    $stmt->bind_param('sss', $new_password, $first_access, $id);
     $stmt->execute();
     
     $permissionquery = "SELECT permission as permission FROM users WHERE id = $id";

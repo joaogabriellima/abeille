@@ -42,7 +42,7 @@
 
 <!-- Insert Users Modal -->
 <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="insertUserForm">
             <h1 class="h3 mb-0 text-gray-800 text-center">Meu Perfil</h1>
@@ -62,7 +62,7 @@
                 <div class="col-md-6">
                     <input type="file" id="profile_picture" accept=".jpg, .png">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 float-right">
                     <a href="#" id="profile_saveUser" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="width: 150px; margin-top: 15px;">
                         <i class="fas fa-user fa-sm text-white-50"></i> Salvar
                     </a>

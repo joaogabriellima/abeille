@@ -27,6 +27,7 @@
     <link href="custom_css/custom.css" rel="stylesheet">
     <link href="js/sweetalert2.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="plugins/loader/jquery.loadingModal.min.css">
 </head>
 
 <body id="page-top">
@@ -171,6 +172,7 @@
     <script src="js/sweetalert2.all.min.js"></script>
     <script src="js/moment.js"></script>
     <script src="scripts/attend_hist.js"></script>
+    <script src="plugins/loader/jquery.loadingModal.min.js"></script>
 </body>
 
 </html>

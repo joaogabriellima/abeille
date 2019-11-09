@@ -8,7 +8,7 @@ $(document).ready(function() {
     $('#addFunc').click(function() {
         $('#full_name').prop('readonly', false);
         $('#cpf').prop('readonly', false);
-
+        
         $('#full_name').val('');
         $('#login').val('');
         $('#cpf').val('');
@@ -43,7 +43,7 @@ $(document).ready(function() {
             });
             return;
         }
-        
+
         var id = $(this).attr('data-id');
         
         if (id != null && id != '') {
@@ -68,10 +68,11 @@ $(document).ready(function() {
             OpenEditModal(response);
         });
     });
-
+    
     $(document).on('click', '.unblockUserButton', function(e) {
         e.preventDefault();
-        
+        CreateModal();
+
         var id = $(this).attr('data-id');
         
         $.ajax({
@@ -79,6 +80,7 @@ $(document).ready(function() {
             method: 'post',
             data: 'id=' + id
         }).then(function(response) {
+            $('body').loadingModal('destroy');
             SearchAll();
         });
     });
@@ -95,6 +97,7 @@ $(document).ready(function() {
             confirmButtonText: 'Excluir',
             cancelButtonText: 'Cancelar'
         }).then((result) => {
+            CreateModal();
             if (result.value) {
                 DeleteUser(id);
                 return;
@@ -102,11 +105,22 @@ $(document).ready(function() {
         });
     });
     
+    function CreateModal() {
+        $('body').loadingModal({
+            position: 'auto',
+            text: 'Carregando...',
+            color: '#fff',
+            opacity: '0.7',
+            backgroundColor: 'rgb(0,0,0)',
+            animation: 'doubleBounce'
+        });
+    }    
     
     SearchAll();
     PopulateDropdown();
     
     function SearchAll() {
+        CreateModal();
         $.ajax({
             url: 'api/userslist.php',
             method: 'get',
@@ -163,6 +177,9 @@ $(document).ready(function() {
                 },
                 order: [[1, 'asc']]
             });
+
+            $('body').loadingModal('destroy');
+
             
         }).catch(function(error) {
             Swal.fire({
@@ -187,7 +204,7 @@ $(document).ready(function() {
             '<a href="#" class="deleteUserButton text-danger" data-id="'+ e.id +'"><i class="fas fa-trash-alt" title="Excluir"></i></a>'
         ];
     }
-
+    
     function PopulateDropdown() {
         $.ajax({
             url: 'api/get_permission.php',
@@ -195,18 +212,19 @@ $(document).ready(function() {
         }).done(function(response) {
             response = JSON.parse(response);
             var permission = $('#permission');
-
+            
             response.forEach(function(e) {
                 permission.append('<option value="' + e.id +'">'+ e.name +'</option>');
             });
             
         })
         .catch(function(error) {
-
+            
         });
     }
     
     function InsertUser() {
+        CreateModal();
         var param = CreateObject();
         $.ajax({
             url: 'api/insert_user.php',
@@ -214,6 +232,7 @@ $(document).ready(function() {
             data: param
         }).done(function(response) {
             CleanAndClose();
+            $('body').loadingModal('destroy');
             if (typeof response === 'string' && response.indexOf('error') >= 0) {
                 Swal.fire({
                     title: 'Erro!',
@@ -244,7 +263,7 @@ $(document).ready(function() {
     }
     
     function UpdateUser() {
-        
+        CreateModal();
         var param = CreateEditObject();
         
         $.ajax({

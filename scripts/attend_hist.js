@@ -1,9 +1,20 @@
 $(document).ready(function() {
 
+    function CreateModal() {
+        $('body').loadingModal({
+            position: 'auto',
+            text: 'Carregando...',
+            color: '#fff',
+            opacity: '0.7',
+            backgroundColor: 'rgb(0,0,0)',
+            animation: 'doubleBounce'
+          });
+    }
 
     SearchAll();
 
     function SearchAll() {
+        CreateModal();
         $.ajax({
             url: 'api/attend_hist_request.php',
             method: 'get',
@@ -61,8 +72,11 @@ $(document).ready(function() {
                 },
                 order: [[1, 'asc']]
             });
+
+            $('body').loadingModal('destroy');
         })
         .catch(function(error) {
+            $('body').loadingModal('destroy');
             Swal.fire({
                 title: 'Erro!',
                 text: 'Um erro ocorreu ao pesquisar os atendimentos',

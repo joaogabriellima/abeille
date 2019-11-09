@@ -53,7 +53,7 @@ session_start();
                   </div>
                   <form class="user">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user logininput" id="login_field" aria-describedby="Login" placeholder="Digite suas credenciais..">
+                      <input type="text" class="form-control form-control-user logininput" id="login_field" aria-describedby="Login" placeholder="Usuário">
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control form-control-user logininput" id="password_field" placeholder="Senha">

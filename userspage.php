@@ -21,6 +21,7 @@
       <link href="custom_css/custom.css" rel="stylesheet">
       <link href="js/sweetalert2.css" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+      <link rel="stylesheet" href="plugins/loader/jquery.loadingModal.min.css">
    </head>
    <body id="page-top">
       <div id="wrapper">
@@ -131,7 +132,7 @@
                             <input type="file" id="picture" accept=".jpg, .png" required>
                         </div>
                         <div class="col-md-6">
-                            <a href="#" id="saveUser" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="width: 150px; margin-top: 15px;">
+                            <a href="#" id="saveUser" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right" style="width: 150px; margin-top: 15px;">
                                 <i class="fas fa-user fa-sm text-white-50"></i> Salvar
                             </a>
                         </div>
@@ -155,5 +156,6 @@
       <script src="scripts/users.js" type="text/javascript"></script>
       <script src="plugins/jquery.mask.min.js" type="text/javascript"></script>
       <script src="js/sweetalert2.all.min.js"></script>
+      <script src="plugins/loader/jquery.loadingModal.min.js"></script>
    </body>
 </html>
