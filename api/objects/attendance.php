@@ -17,6 +17,7 @@ class Attendance {
     public $id;
     public $queue_number;
     public $id_user;
+    public $full_name; // attendent name
     public $status;
     public $rate;
     public $start_time;
@@ -71,10 +72,11 @@ class Attendance {
     }
 
     public function getStatus() {
-        $query =    'SELECT status, rate
-                    FROM ' . $this->table_name . ' 
-                    WHERE DATE(created_at) = DATE(NOW())
-                        AND Id = :id';
+        $query =    'SELECT a.status as status, a.rate as rate, u.full_name as full_name
+                    FROM ' . $this->table_name . ' a
+                    LEFT JOIN users u ON a.id_user = u.id
+                    WHERE DATE(a.created_at) = DATE(NOW())
+                        AND a.id = :id';
         
         $stmt = $this->conn->prepare($query);
 
@@ -88,6 +90,7 @@ class Attendance {
 
             $this->status = $status;
             $this->rate = $rate;
+            $this->full_name = $full_name;
 
             return $this->status;
         } else {
