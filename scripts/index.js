@@ -40,10 +40,12 @@ $(document).ready(function() {
     });
 
     function StartAttendance() {
+        CreateModal();
         $.ajax({
             url: 'api/start_attendance.php',
             method: 'post',
         }).done(result => {
+            $('body').loadingModal('destroy');
             window.location.href = 'attendance.php';
         }).catch(error => {
             Swal.fire({
@@ -62,10 +64,12 @@ $(document).ready(function() {
     });
 
     function FinishAttendance() {
+        CreateModal();
         $.ajax({
             url: 'api/finish_attendance.php',
             method: 'post',
         }).done(result => {
+            $('body').loadingModal('destroy');
             window.location.href = 'index.php';
         }).catch(error => {
             Swal.fire({

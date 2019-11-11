@@ -42,4 +42,13 @@
     color: #3c4045;
 }
 
-#table-users tr:nth-child(even){background-color: #fff7eb;}
+input[type="search"] {
+    padding: 5px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+}
+
+input[type="search"]:focus {
+    padding: 5px;
+    border: none;
+}

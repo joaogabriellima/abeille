@@ -33,7 +33,7 @@ $(document).ready(function() {
             $('#table-attendance-hist').DataTable({
                 data: source,
                 columns: [
-                    { title: "Número", sortable: false },
+                    { title: "Número", sortable: true },
                     { title: "Atendente", sortable: false },
                     { title: "Status", sortable: false },
                     { title: "Nota", sortable: false },

@@ -82,7 +82,7 @@
                      </div>
                      <div class="card-body">
                         <div class="table-responsive">
-                           <table id="table-users"></table>
+                           <table id="table-users" class="table table-striped table-bordered"></table>
                         </div>
                      </div>
 

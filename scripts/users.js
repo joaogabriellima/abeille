@@ -59,11 +59,13 @@ $(document).ready(function() {
         
         var id = $(this).attr('data-id');
         
+        CreateModal();
         $.ajax({
             url: 'api/getUserData.php',
             method: 'post',
             data: 'id=' + id
         }).then(function(response) {
+            $('body').loadingModal('destroy');
             response = JSON.parse(response);
             OpenEditModal(response);
         });
@@ -138,7 +140,7 @@ $(document).ready(function() {
             $('#table-users').DataTable({
                 data: source,
                 columns: [
-                    { title: "Nome", sortable: false },
+                    { title: "Nome", sortable: true },
                     { title: "E-mail", sortable: false },
                     { title: "Login", sortable: false },
                     { title: "Telefone", sortable: false },
@@ -182,6 +184,7 @@ $(document).ready(function() {
 
             
         }).catch(function(error) {
+            $('body').loadingModal('destroy');
             Swal.fire({
                 title: 'Erro!',
                 text: 'Um erro ocorreu ao pesquisar os usuários',
@@ -252,6 +255,7 @@ $(document).ready(function() {
             });
             SearchAll();        
         }).catch(function(error) {
+            $('body').loadingModal('destroy');
             Swal.fire({
                 title: 'Erro!',
                 text: 'Um erro ocorreu ao inserir o usuário',
@@ -272,6 +276,7 @@ $(document).ready(function() {
             data: param
         }).done(function(response) {
             CleanAndClose();   
+            $('body').loadingModal('destroy');
             SearchAll();             
             Swal.fire({
                 title: 'Sucesso!',
@@ -280,6 +285,7 @@ $(document).ready(function() {
                 confirmButtonText: 'Ok'
             });  
         }).catch(function(error) {
+            $('body').loadingModal('destroy');
             SearchAll();
             Swal.fire({
                 title: 'Erro!',
@@ -291,11 +297,13 @@ $(document).ready(function() {
     }
     
     function DeleteUser(id) {
+        CreateModal();
         $.ajax({
             url: 'api/delete_user.php',
             method: 'post',
             data: 'userid=' + id
         }).done(success => {
+            $('body').loadingModal('destroy');
             SearchAll();
             Swal.fire({
                 title: 'Sucesso!',
@@ -304,6 +312,7 @@ $(document).ready(function() {
                 confirmButtonText: 'Ok'
             });
         }).catch(error => {
+            $('body').loadingModal('destroy');
             SearchAll();
             Swal.fire({
                 title: 'Erro!',
