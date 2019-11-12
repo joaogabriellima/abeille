@@ -38,11 +38,11 @@ try {
                     return;
                 }
                 
-                if ($rowDTO['permission'] == 0)
+                if ($rowDTO['permission'] == 1)
                 echo "success_adm";
 
                 
-                if ($rowDTO['permission'] == 1)
+                if ($rowDTO['permission'] == 2)
                 echo "success_atd";
 
                 exit();
