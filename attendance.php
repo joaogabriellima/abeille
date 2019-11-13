@@ -90,9 +90,9 @@
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h3 class="h4 mb-0 text-gray-800">Atendimento ao cliente em andamento</b></h3>
-                    <a href="#" id="finish_attendance" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-danger">
+                    <button id="finish_attendance" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-danger">
                         <i class="fas fa-user fa-sm text-white-50"></i> Finalizar Atendimento
-                    </a>
+                    </button>
                 </div>
 
 
@@ -169,6 +169,7 @@
     <script src="scripts/index.js" type="text/javascript"></script>
     <script src="scripts/users.js" type="text/javascript"></script>
     <script src="plugins/jquery.mask.min.js" type="text/javascript"></script>
+    <script src="plugins/loader/jquery.loadingModal.min.js" type="text/javascript"></script>
     <script src="js/sweetalert2.all.min.js"></script>
 </body>
 </html>

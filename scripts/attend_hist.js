@@ -34,12 +34,12 @@ $(document).ready(function() {
                 data: source,
                 columns: [
                     { title: "Número", sortable: true },
-                    { title: "Atendente", sortable: false },
-                    { title: "Status", sortable: false },
-                    { title: "Nota", sortable: false },
-                    { title: "Início", sortable: false },
-                    { title: "Fim", sortable: false },
-                    { title: "Tempo Total", sortable: false }
+                    { title: "Atendente", sortable: true },
+                    { title: "Status", sortable: true },
+                    { title: "Nota", sortable: true },
+                    { title: "Início", sortable: true },
+                    { title: "Fim", sortable: true },
+                    { title: "Tempo Total", sortable: true }
                 ],
                 width: '100%',
                 height: '100%',
@@ -95,7 +95,7 @@ $(document).ready(function() {
             e.rate ? e.rate : 'Não Avaliado',
             moment(e.start_time).format('DD/MM/YYYY HH:mm'),
             moment(e.end_time).format('DD/MM/YYYY HH:mm'),
-            e.total_time ? e.total_time /60 + ' minutos' : '-'
+            e.total_time ? (e.total_time /60).toFixed(2) + ' minutos' : '-'
         ];
     }
 

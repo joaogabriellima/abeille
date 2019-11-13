@@ -3,10 +3,10 @@
 namespace Abeille;
 
 class Database {
-    private $host = 'localhost';
-    private $db_name = 'abeille';
-    private $username = 'root';
-    private $password = '';
+    private $host = 'mysql.hostinger.com';
+    private $db_name = 'u230629828_abeille';
+    private $username = 'u230629828_adm';
+    private $password = 'abeille';
 
     public $conn;
 
