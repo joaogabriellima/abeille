@@ -1,7 +1,7 @@
 # **Abeille**
 Sistema genérico de controle de serviço a clientes
 ##### **Resumo do Repositório**
-Um grande abraço aos meus colegas de faculdade Renan Vaqueli, Giovanna Kellen, Isabella Macedo e Karla Vinhas, que viveram esse momento incrível da minha vida que denominamos de Abeille. Espero que vocês todos estejam bem.
+Um grande abraço aos meus colegas de faculdade Renan Vaqueli, Giovanna Kellen, Isabella Macedo e Karla Vinhas, que viveram esse momento incrível das nossas vidas que denominamos de Abeille. Espero que vocês todos estejam bem.
 
 Seja bem vindo ao repositório do nosso trabalho de conclusão de curso, antes de começarmos é importante lembrar que esse projeto não seguiu apenas uma metodologia e também fugiu em diversos pontos das boas práticas de programação. Em outras palavras, devido aos desafios impostos pela própria faculdade, esse projeto foi realizado na metodologia XGH (eXtreme Go Horse). Ou seja, fizemos o que deu, da melhor forma possível, na melhor velocidade possível.
 
